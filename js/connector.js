@@ -60,7 +60,7 @@ app.use(function (req, res, next) {
 
 // Parse payload hex and id from XML body
 app.use(function (req, res, next) {
-	var id = req.body.match(/<Lrrid>([0-9]{8})<\/Lrrid>/)[1]
+	var id = req.body.match(/<DevEUI>([a-fA-F0-9]{16})<\/DevEUI>/)[1]
 	var hex = req.body.match(/<payload_hex>([a-fA-F0-9]+)<\/payload_hex>/)[1]
 
 	if ( ! id) {
