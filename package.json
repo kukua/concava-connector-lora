@@ -1,0 +1,26 @@
+{
+  "name": "lora-connector",
+  "version": "0.1.0",
+  "description": "LoRa Connector for ConCaVa.",
+  "private": true,
+  "main": "js/connector.js",
+  "scripts": {
+    "start": "node ./js/connector.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kukua/lora-connector.git"
+  },
+  "author": "Maurits van Mastrigt <maurits@nerdieworks.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kukua/lora-connector/issues"
+  },
+  "homepage": "https://github.com/kukua/lora-connector#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "connect": "^3.4.0",
+    "request": "^2.65.0"
+  }
+}
