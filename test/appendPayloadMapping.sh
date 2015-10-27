@@ -15,6 +15,10 @@
 					"value": 5,
 					"metadatas": [
 						{
+							"name": "index",
+							"value": 0
+						},
+						{
 							"name": "min",
 							"type": "integer",
 							"value": -30
@@ -29,13 +33,23 @@
 				{
 					"name": "skip1",
 					"type": "skip",
-					"value": 2
+					"value": 2,
+					"metadatas": [
+						{
+							"name": "index",
+							"value": 1
+						}
+					]
 				},
 				{
 					"name": "temp2",
 					"type": "asciiFloat",
 					"value": 5,
 					"metadatas": [
+						{
+							"name": "index",
+							"value": 2
+						},
 						{
 							"name": "min",
 							"type": "integer",
@@ -51,13 +65,23 @@
 				{
 					"name": "skip2",
 					"type": "skip",
-					"value": 2
+					"value": 2,
+					"metadatas": [
+						{
+							"name": "index",
+							"value": 3
+						}
+					]
 				},
 				{
 					"name": "humidity",
 					"type": "asciiInteger",
 					"value": 4,
 					"metadatas": [
+						{
+							"name": "index",
+							"value": 4
+						},
 						{
 							"name": "min",
 							"type": "integer",
@@ -73,12 +97,24 @@
 				{
 					"name": "skip3",
 					"type": "skip",
-					"value": 2
+					"value": 2,
+					"metadatas": [
+						{
+							"name": "index",
+							"value": 5
+						}
+					]
 				},
 				{
 					"name": "pressure",
 					"type": "asciiFloat",
-					"value": 5
+					"value": 5,
+					"metadatas": [
+						{
+							"name": "index",
+							"value": 6
+						}
+					]
 				}
 			]
 		}
