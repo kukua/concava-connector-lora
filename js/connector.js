@@ -103,7 +103,13 @@ app.use(function (req, res, next) {
 			'X-Auth-Token': req.user.token,
 		},
 	}, function (err, httpResponse, body) {
-		next(err)
+		if (err) return next(err)
+
+		if (httpResponse.statusCode !== 200) {
+			return next('Error in ConCaVa (' + httpResponse.statusMessage + '): ' + body)
+		}
+
+		next()
 	})
 })
 
