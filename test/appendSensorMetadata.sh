@@ -5,9 +5,9 @@
 {
 	"contextElements": [
 		{
-			"type": "PayloadMapping",
+			"type": "SensorMetadata",
 			"isPattern": "false",
-			"id": "17311037691378274000",
+			"id": "F03D291000001180",
 			"attributes": [
 				{
 					"name": "temp1",
