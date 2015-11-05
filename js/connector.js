@@ -74,21 +74,14 @@ app.use(function (req, res, next) {
 		return
 	}
 
-	req.payload = new Buffer(id + hex, 'hex')
+	req.buffer = new Buffer(id + hex, 'hex')
 	next()
 })
 
 // Debug: dump request paremeters
 if (debug) {
 	app.use(function (req, res, next) {
-		console.log({
-			url: concavaUrl,
-			body: req.payload,
-			headers: {
-				'Content-Type': 'application/octet-stream',
-				'X-Auth-Token': req.user.token,
-			},
-		})
+		console.log(req.buffer.toString('hex'))
 		next()
 	})
 }
@@ -97,7 +90,7 @@ if (debug) {
 app.use(function (req, res, next) {
 	request.post({
 		url: concavaUrl,
-		body: req.payload,
+		body: req.buffer,
 		headers: {
 			'Content-Type': 'application/octet-stream',
 			'X-Auth-Token': req.user.token,
