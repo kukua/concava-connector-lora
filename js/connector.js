@@ -9,14 +9,32 @@ var request = require('request')
 var debug = true
 var port = 3001
 var concavaUrl = 'http://localhost:3000/'
+var keyrock = {
+	url: 'http://concava:5000/v3/',
+	adminToken: 'b7c415f74139431a9382882f2bf0bd8c',
+}
 
 // Define method for authentication mocking
 function getUserByToken (token, cb) {
-	if (token === 'test') {
-		var user = { id: 1, token: token }
-		return cb(null, user)
-	}
-	cb('No user for token.')
+	request(keyrock.url + 'auth/tokens', {
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Auth-Token': keyrock.adminToken,
+			'X-Subject-Token': token,
+		},
+	}, function (err, httpResponse, body) {
+		if (err) return cb(err)
+		if (httpResponse.statusCode !== 200) cb('Invalid token.')
+
+		var data = JSON.parse(body)
+		var user = data.token.user
+
+		cb(null, {
+			id: user.id,
+			name: user.name,
+			token: token,
+		})
+	})
 }
 
 // Verify request method
