@@ -7,7 +7,7 @@
 		{
 			"type": "SensorMetadata",
 			"isPattern": "false",
-			"id": "F03D291000001180",
+			"id": "f03d291000001180",
 			"attributes": [
 				{
 					"name": "temp1",
