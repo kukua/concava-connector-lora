@@ -8,7 +8,7 @@ var request = require('request')
 // Configuration
 var debug = true
 var port = 3001
-var concavaUrl = 'http://localhost:3000/'
+var concavaUrl = 'http://localhost:3000/v1/sensorData'
 var keyrock = {
 	url: 'http://concava:5000/v3/',
 	adminToken: 'b0cf392a9562445d8cb222038010716a',
