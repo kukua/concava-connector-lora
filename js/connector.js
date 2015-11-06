@@ -11,7 +11,7 @@ var port = 3001
 var concavaUrl = 'http://localhost:3000/'
 var keyrock = {
 	url: 'http://concava:5000/v3/',
-	adminToken: 'b7c415f74139431a9382882f2bf0bd8c',
+	adminToken: 'f53779e909834a01abdceca8ea4f197e',
 }
 
 // Define method for authentication mocking
@@ -24,9 +24,15 @@ function getUserByToken (token, cb) {
 		},
 	}, function (err, httpResponse, body) {
 		if (err) return cb(err)
-		if (httpResponse.statusCode !== 200) cb('Invalid token.')
+		if (httpResponse.statusCode !== 200) return cb('Unauthorized token.')
 
 		var data = JSON.parse(body)
+
+		if (data.error) {
+			if (data.error.code === 401) return cb('Unauthorized token.')
+			return cb(data.error.message)
+		}
+
 		var user = data.token.user
 
 		cb(null, {
