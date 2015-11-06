@@ -111,7 +111,7 @@ app.use(function (req, res, next) {
 		body: req.buffer,
 		headers: {
 			'Content-Type': 'application/octet-stream',
-			'X-Auth-Token': req.user.token,
+			'Authorization': 'Token ' + req.user.token,
 		},
 	}, function (err, httpResponse, body) {
 		if (err) return next(err)
