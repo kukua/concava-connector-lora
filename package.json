@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "LoRa Connector for ConCaVa.",
   "private": true,
-  "main": "js/connector.js",
+  "main": "src/connector.js",
   "scripts": {
-    "start": "node ./js/connector.js",
+    "start": "node ./src/connector.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
