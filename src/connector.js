@@ -14,7 +14,7 @@ var keyrock = {
 	adminToken: 'b0cf392a9562445d8cb222038010716a',
 }
 
-// Define method for authentication mocking
+// Authentication method
 function getUserByToken (token, cb) {
 	request(keyrock.url + 'auth/tokens', {
 		headers: {
@@ -40,6 +40,26 @@ function getUserByToken (token, cb) {
 			name: user.name,
 			token: token,
 		})
+	})
+}
+
+// Method for sending data to ConCaVa
+function send (token, deviceId, payload, cb) {
+	request.post({
+		url: concavaUrl,
+		body: Buffer.concat([new Buffer(deviceId, 'hex'), payload]),
+		headers: {
+			'Content-Type': 'application/octet-stream',
+			'Authorization': 'Token ' + token,
+		},
+	}, function (err, httpResponse, body) {
+		if (err) return cb(err)
+
+		if (httpResponse.statusCode !== 200) {
+			return cb('Error in ConCaVa (' + httpResponse.statusMessage + '): ' + body)
+		}
+
+		cb()
 	})
 }
 
@@ -100,36 +120,22 @@ app.use(function (req, res, next) {
 		return cb(err)
 	}
 
-	req.buffer = new Buffer(id + hex, 'hex')
+	req.deviceId = id
+	req.payload = new Buffer(hex, 'hex')
 	next()
 })
 
 // Debug: dump request paremeters
 if (debug) {
 	app.use(function (req, res, next) {
-		console.log(req.buffer.toString('hex'))
+		console.log(req.deviceId, req.payload.toString('hex'))
 		next()
 	})
 }
 
 // Forward to ConCaVa
 app.use(function (req, res, next) {
-	request.post({
-		url: concavaUrl,
-		body: req.buffer,
-		headers: {
-			'Content-Type': 'application/octet-stream',
-			'Authorization': 'Token ' + req.user.token,
-		},
-	}, function (err, httpResponse, body) {
-		if (err) return next(err)
-
-		if (httpResponse.statusCode !== 200) {
-			return next('Error in ConCaVa (' + httpResponse.statusMessage + '): ' + body)
-		}
-
-		next()
-	})
+	send(req.user.token, req.deviceId, req.payload, next)
 })
 
 // Return response
