@@ -9,39 +9,6 @@ var request = require('request')
 var debug = true
 var port = 3001
 var concavaUrl = 'http://localhost:3000/v1/sensorData'
-var keyrock = {
-	url: 'http://concava:5000/v3/',
-	adminToken: 'b0cf392a9562445d8cb222038010716a',
-}
-
-// Authentication method
-function getUserByToken (token, cb) {
-	request(keyrock.url + 'auth/tokens', {
-		headers: {
-			'Content-Type': 'application/json',
-			'X-Auth-Token': keyrock.adminToken,
-			'X-Subject-Token': token,
-		},
-	}, function (err, httpResponse, body) {
-		if (err) return cb(err)
-		if (httpResponse.statusCode !== 200) return cb('Unauthorized token.')
-
-		var data = JSON.parse(body)
-
-		if (data.error) {
-			if (data.error.code === 401) return cb('Unauthorized token.')
-			return cb(data.error.message)
-		}
-
-		var user = data.token.user
-
-		cb(null, {
-			id: user.id,
-			name: user.name,
-			token: token,
-		})
-	})
-}
 
 // Method for sending data to ConCaVa
 function send (token, deviceId, payload, cb) {
@@ -76,20 +43,6 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
 	req.query = url.parse(req.url, true).query
 	next()
-})
-
-// Authenticate
-app.use(function (req, res, next) {
-	getUserByToken(req.query.token, function (err, user) {
-		if (err) {
-			err = new Error('Invalid authorization token.')
-			err.statusCode = 401
-			return next(err)
-		}
-
-		req.user = user
-		next()
-	})
 })
 
 // Parse body
@@ -135,7 +88,7 @@ if (debug) {
 
 // Forward to ConCaVa
 app.use(function (req, res, next) {
-	send(req.user.token, req.deviceId, req.payload, next)
+	send(req.query.token, req.deviceId, req.payload, next)
 })
 
 // Return response
