@@ -1,0 +1,5 @@
+module.exports = {
+	debug: true,
+	port: 3001,
+	concavaUrl: 'http://example.com:3000/v1/sensorData',
+}

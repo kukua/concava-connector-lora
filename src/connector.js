@@ -6,14 +6,12 @@ var bodyParser = require('body-parser')
 var request = require('request')
 
 // Configuration
-var debug = true
-var port = 3001
-var concavaUrl = 'http://localhost:3000/v1/sensorData'
+var config = require('../config.js')
 
 // Method for sending data to ConCaVa
 function send (token, deviceId, payload, cb) {
 	request.post({
-		url: concavaUrl,
+		url: config.concavaUrl,
 		body: Buffer.concat([new Buffer(deviceId, 'hex'), payload]),
 		headers: {
 			'Content-Type': 'application/octet-stream',
@@ -79,7 +77,7 @@ app.use(function (req, res, next) {
 })
 
 // Debug: dump request paremeters
-if (debug) {
+if (config.debug) {
 	app.use(function (req, res, next) {
 		console.log(req.deviceId, req.payload.toString('hex'))
 		next()
@@ -114,5 +112,5 @@ app.use(function (err, req, res, next) {
 })
 
 // Start server
-http.createServer(app).listen(port)
-console.log('Listening on', port)
+http.createServer(app).listen(config.port)
+console.log('Listening on', config.port)
