@@ -9,11 +9,12 @@ docker run -d -p 3001 -v /path/to/config.js:/data/config.js kukuadev/concava-lor
 ```
 
 Make sure [ConCaVa](https://github.com/kukua/concava) is setup aswell.
+See [`config.js.sample`](https://github.com/kukua/concava-lora-connector/tree/master/config.js.sample) for the default configuration.
 
-## Example
+## Test
 
 ```bash
-http POST 'http://<container IP>:3001/?token=test' 'Content-Type: text/xml' < data.xml`
+http POST 'http://<container IP>:3001/?token=test' 'Content-Type: text/xml' < example.xml
 ```
 
 In these examples [HTTPie](https://github.com/jkbrzt/httpie) is used.
@@ -21,7 +22,7 @@ See [`example.xml`](https://github.com/kukua/concava-lora-connector/tree/master/
 
 ## Contribute
 
-Your help and feedback is highly welcome!
+Your help and feedback are highly welcome!
 
 ```bash
 git clone https://github.com/kukua/concava-lora-connector
