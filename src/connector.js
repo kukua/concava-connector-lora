@@ -79,7 +79,7 @@ app.use(function (req, res, next) {
 		return cb(err)
 	}
 
-	req.deviceId = id
+	req.deviceId = id.toLowerCase()
 	req.payload = new Buffer(hex, 'hex')
 	next()
 })
