@@ -1,20 +1,20 @@
 # LoRa Connector
 
-> LoRa Connector for converting XML from a KPN LoRa Server to a binary payload and forwarding it to ConCaVa.
+> LoRa Connector for converting XML to a binary payload and forwarding it to ConCaVa.
 
 ## How to use
 
 ```bash
-docker run -d -p 3001 -v /path/to/config.js:/data/config.js kukuadev/concava-lora-connector
+docker run -d -p 3000:3000 -v /path/to/config.js:/data/config.js kukuadev/concava-lora-connector
 ```
 
-Make sure [ConCaVa](https://github.com/kukua/concava) is setup aswell.
+Make sure [ConCaVa](https://github.com/kukua/concava) is setup as well.
 See [`config.js.sample`](https://github.com/kukua/concava-lora-connector/tree/master/config.js.sample) for the default configuration.
 
 ## Test
 
 ```bash
-http POST 'http://<container IP>:3001/?token=test' 'Content-Type: text/xml' < example.xml
+http POST 'http://<container IP>:3000/?token=test' 'Content-Type: text/xml' < example.xml
 ```
 
 In these examples [HTTPie](https://github.com/jkbrzt/httpie) is used.
