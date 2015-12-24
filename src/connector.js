@@ -2,7 +2,6 @@ var connect = require('connect')
 var http = require('http')
 var app = connect()
 var url = require('url')
-var bodyParser = require('body-parser')
 var request = require('request')
 
 // Configuration
@@ -44,7 +43,16 @@ app.use(function (req, res, next) {
 })
 
 // Parse body
-app.use(bodyParser.text({ type: 'text/xml' }))
+app.use(function (req, res, next) {
+	req.setEncoding('utf8')
+	req.body = ''
+	req.on('data', function (chunk) {
+		req.body += chunk
+	})
+	req.on('end', function () {
+		next()
+	})
+})
 
 // Verify given XML
 app.use(function (req, res, next) {

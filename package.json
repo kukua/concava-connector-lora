@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/kukua/concava-lora-connector#readme",
   "dependencies": {
-    "body-parser": "^1.14.1",
     "connect": "^3.4.0",
     "request": "^2.65.0"
   }
