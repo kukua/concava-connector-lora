@@ -48,7 +48,7 @@ app.use(bodyParser.text({ type: 'text/xml' }))
 
 // Verify given XML
 app.use(function (req, res, next) {
-	if (req.body) return next()
+	if (typeof req.body === 'string' && req.body) return next()
 
 	var err = new Error('No content.')
 	err.statusCode = 204
