@@ -21,7 +21,7 @@ See [`example.xml`](https://github.com/kukua/concava-connector-lora/tree/master/
 
 ## Contribute
 
-Your help and feedback are highly welcome!
+Your help and feedback are highly appreciated!
 
 ```bash
 git clone https://github.com/kukua/concava-connector-lora
@@ -29,3 +29,9 @@ cd concava-connector-lora
 npm install
 npm start
 ```
+
+## License
+
+This software is licensed under the [MIT license](https://github.com/kukua/concava-connector-spul/blob/master/LICENSE).
+
+© 2016 Kukua BV
