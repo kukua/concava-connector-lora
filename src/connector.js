@@ -1,16 +1,18 @@
 var connect = require('connect')
 var http = require('http')
 var app = connect()
-var url = require('url')
+var urlParser = require('url')
 var request = require('request')
 
 // Configuration
-var config = require('../config.js')
+const debug = (process.env['DEBUG'] === 'true' || process.env['DEBUG'] === '1')
+const url = (process.env['CONCAVA_URL'] || 'unknown.host')
+const port = (parseInt(process.env['PORT']) || 3000)
 
 // Method for sending data to ConCaVa
 function send (token, deviceId, payload, cb) {
 	request.post({
-		url: config.concavaUrl,
+		url,
 		body: Buffer.concat([new Buffer(deviceId, 'hex'), payload]),
 		headers: {
 			'Content-Type': 'application/octet-stream',
@@ -38,7 +40,7 @@ app.use(function (req, res, next) {
 
 // Parse query
 app.use(function (req, res, next) {
-	req.query = url.parse(req.url, true).query
+	req.query = urlParser.parse(req.url, true).query
 	next()
 })
 
@@ -69,14 +71,14 @@ app.use(function (req, res, next) {
 	var hex = req.body.match(/<payload_hex>([a-fA-F0-9]{1,51})<\/payload_hex>/)[1]
 
 	if ( ! id) {
-		var err = new Error('Invalid payload ID.')
+		let err = new Error('Invalid payload ID.')
 		err.statusCode = 400
-		return cb(err)
+		return next(err)
 	}
 	if ( ! hex) {
-		var err = new Error('Invalid payload hex.')
+		let err = new Error('Invalid payload hex.')
 		err.statusCode = 400
-		return cb(err)
+		return next(err)
 	}
 
 	req.deviceId = id.toLowerCase()
@@ -85,7 +87,7 @@ app.use(function (req, res, next) {
 })
 
 // Debug: dump request paremeters
-if (config.debug) {
+if (debug) {
 	app.use(function (req, res, next) {
 		console.log(req.deviceId, req.payload.toString('hex'))
 		next()
@@ -100,6 +102,7 @@ app.use(function (req, res, next) {
 // Return response
 app.use(function (req, res, next) {
 	res.end()
+	next()
 })
 
 // Error handler
@@ -117,8 +120,10 @@ app.use(function (err, req, res, next) {
 	} else {
 		res.end(err || '')
 	}
+
+	next()
 })
 
 // Start server
-http.createServer(app).listen(config.port)
-console.log('Listening on', config.port)
+http.createServer(app).listen(port)
+console.log('Listening on', port)
