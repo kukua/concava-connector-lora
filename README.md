@@ -19,6 +19,7 @@ chmod 600 .env
 # > Edit .env
 
 npm install
+npm run compile
 source .env
 npm start
 ```
@@ -34,7 +35,9 @@ curl https://raw.githubusercontent.com/kukua/concava-connector-lora/master/.env.
 chmod 600 .env
 # > Edit .env
 
+touch $PWD/lora.log
 docker run -d -p 3333:3333 -p 5555:5555 \
+	-v $PWD/lora.log:/lora.log
 	--env-file .env --name lora_connector \
 	kukuadev/concava-connector-lora
 ```
