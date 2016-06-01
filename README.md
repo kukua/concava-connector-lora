@@ -7,14 +7,14 @@
 The LoRa connector can be run as a NodeJS program or in a Docker container.
 
 Make sure [ConCaVa](https://github.com/kukua/concava) is setup as well.
-See [`.env.sample`](https://github.com/kukua/concava-connector-lora/tree/master/.env.sample) for the default configuration.
+See [`.env.example`](https://github.com/kukua/concava-connector-lora/tree/master/.env.example) for the default configuration.
 
 ### NodeJS
 
 ```bash
 git clone https://github.com/kukua/concava-connector-lora.git
 cd concava-connector-lora
-cp .env.sample .env
+cp .env.example .env
 chmod 600 .env
 # > Edit .env
 
@@ -31,7 +31,7 @@ Tested with NodeJS v5.1
 First, [install Docker](http://docs.docker.com/engine/installation/). Then run:
 
 ```bash
-curl https://raw.githubusercontent.com/kukua/concava-connector-lora/master/.env.sample > .env
+curl https://raw.githubusercontent.com/kukua/concava-connector-lora/master/.env.example > .env
 chmod 600 .env
 # > Edit .env
 
@@ -47,7 +47,7 @@ Tested with Docker v1.9.
 ## Test
 
 ```js
-cat example.xml | curl -v -XPOST 'http://<container IP>:3000/?token=abcdef0123456789abcdef0123456789' -H 'Content-Type: text/xml' --data @-
+cat example.xml | curl -v -XPOST 'http://<container IP or localhost>:3000/?token=abcdef0123456789abcdef0123456789' -H 'Content-Type: text/xml' --data @-
 ```
 
 See [`example.xml`](https://github.com/kukua/concava-connector-lora/tree/master/tools/example.xml) for the XML format.

@@ -20,7 +20,7 @@
     "connector",
     "lora"
   ],
-  "author": "Maurits van Mastrigt <maurits@kukua.cc>",
+  "author": "Kukua Team <dev@kukua.cc>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kukua/concava-connector-lora/issues"
