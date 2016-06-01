@@ -8,7 +8,7 @@ var app = connect()
 
 // Logger
 const debug = (process.env['DEBUG'] === 'true' || process.env['DEBUG'] === '1')
-const logFile = (process.env['LOG_FILE'] || '/lora.log')
+const logFile = (process.env['LOG_FILE'] || '/tmp/output.log')
 const log = bunyan.createLogger({
 	name: (process.env['LOG_NAME'] || 'concava-connector-lora'),
 	streams: [
